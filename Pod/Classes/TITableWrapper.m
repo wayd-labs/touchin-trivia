@@ -8,39 +8,56 @@
 
 #import "TITableWrapper.h"
 #import "TIAnalytics.h"
+#import <Aspects.h>
 
 @implementation TITableWrapper
 
 bool (^shouldShow)(void);
 
-
 - (TITableWrapper*) initWithDataSource:(id<UITableViewDataSource>) dataSource
-                                   tableDelegate:(id<UITableViewDelegate>) delegate                                    
+                                   tableDelegate:(id<UITableViewDelegate>) delegate
+                             tableView:(UITableView*) tableView
                                       shouldShow:(bool (^)(void))shouldShowParam {
     self = [super init];
     
     _wrappedDataSource = dataSource;
     _wrappedDelegate = delegate;
+    _tableView = tableView;
     shouldShow = shouldShowParam;
     self.dialogRow = 1;
     self.dialogSection = 0;
+    
+    //check should we show service cell after table update
+    __weak typeof(self) weakSelf = self;
+    [tableView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionAfter
+                                 usingBlock:^(id<AspectInfo> aspectInfo) {
+        [weakSelf check];
+    } error:NULL];
+
     return self;
 }
 
 - (NSString*) UD_SHOWN_KEY {
-    return [NSStringFromClass([self class]) stringByAppendingString:@"SeviceCellShown"];
+    return [NSStringFromClass([self class]) stringByAppendingString:@"ServiceCellShown"];
 }
 
 - (NSString*) UD_FINISHED_KEY {
     return [NSStringFromClass([self class]) stringByAppendingString:@"ServiceCellFinished"];
 }
 
-
+- (BOOL) isFinished {
+    NSNumber* value = [[NSUserDefaults standardUserDefaults] objectForKey:self.UD_FINISHED_KEY];
+    return value.boolValue;
+}
 
 - (bool) show {
-    NSObject* finished = [[NSUserDefaults standardUserDefaults] objectForKey:self.UD_FINISHED_KEY];
     NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:self.UD_SHOWN_KEY];
-    return (shown != nil || shouldShow()) && finished == nil;
+    return (shown != nil ) && ![self isFinished]; //|| shouldShow()
+}
+
+- (bool) shown {
+    NSObject* _shown = [[NSUserDefaults standardUserDefaults] objectForKey:self.UD_SHOWN_KEY];
+    return ((NSNumber*)_shown).boolValue;
 }
 
 //Adjust indexPath for manipulating of table cell directrly in UITableViewController (bad decision)
@@ -96,26 +113,21 @@ bool (^shouldShow)(void);
 {
     NSInteger baseCount = [self.wrappedDataSource tableView:tableView numberOfRowsInSection:section];
     if (self.show && (section == self.dialogSection) && (baseCount > self.dialogRow)) {
-        
-        @synchronized([NSUserDefaults standardUserDefaults]) {
-//            [self.tableView reloadData];
-            NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:self.UD_SHOWN_KEY];
-            NSLog(@"** Shown %@", shown);
-            if (shown == nil) {
-                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:self.UD_SHOWN_KEY];
-
-//                [self.tableView beginUpdates];
-//                NSLog(@"** Insert");
-//                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationRight];
-//                [self.tableView endUpdates];
-                
-                [TIAnalytics.shared trackEvent:@"RATEME-CELL_SHOWN_FIRST"];
-            }
-        }
         baseCount++;
     }
-    NSLog(@"** Basecount %ld in section %ld", (long)baseCount, (long) section);
     return baseCount;
+}
+
+//Check should we show our service cell or not, swizzled after reloadData
+- (void) check {
+    if (shouldShow() && ![self shown]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:self.UD_SHOWN_KEY];
+        if ([self.wrappedDataSource tableView:self.tableView numberOfRowsInSection:self.dialogSection] > self.dialogRow) {
+            //cant insert row in empty table
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationRight];
+        }
+        [TIAnalytics.shared trackEvent:@"RATEME-CELL_SHOWN_FIRST"];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -171,14 +183,10 @@ bool (^shouldShow)(void);
 #pragma mark TIRateMeDelegate
 - (void) finished {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:self.UD_FINISHED_KEY];
-    [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationLeft];
-    [self.tableView endUpdates];
 }
 
 - (void) animateTransition {
-    [self.tableView beginUpdates];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationLeft];
-    [self.tableView endUpdates];
 }
 @end

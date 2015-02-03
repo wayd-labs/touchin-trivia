@@ -28,9 +28,13 @@
 
 - (TITableWrapper*) initWithDataSource:(id<UITableViewDataSource>) dataSource
                       tableDelegate:(id<UITableViewDelegate>) delegate
+                             tableView:(UITableView*) tableView
                          shouldShow:(bool (^)(void))shouldShow;
 
+- (void) check;
 - (NSIndexPath *) adjustIndexPath:(NSIndexPath *) indexPath;
 
 - (UITableViewCell*) createServiceCell;
+
+
 @end

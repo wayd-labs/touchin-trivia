@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "touchin-trivia"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "A short description of touchin-analytics."
   s.description      = <<-DESC
                        An optional longer description of touchin-analytics
@@ -35,4 +35,5 @@ Pod::Spec.new do |s|
   }
 
   s.frameworks = 'UIKit'
+  s.dependency 'Aspects', '~> 1.4'
 end
