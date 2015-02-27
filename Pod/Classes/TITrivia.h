@@ -7,11 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface TITrivia : NSObject
+@interface TITrivia : NSObject<UIAlertViewDelegate>
+
++ (instancetype)sharedInstance;
 
 + (NSString *) versionBuild;
 + (NSString *) appDisplayName;
 + (NSString *) iosVersion;
 + (NSString *) deviceModel;
+
++ (void) showSimpleMessageWithTitle:(NSString*) title message:(NSString*) message presentingVC:(UIViewController*) presentingVC;
+
+@property (nonatomic, weak) UIViewController* presentingVC; //for alerts
+- (void) initTrackActiveVC;
+
+- (void) showSimpleMessageWithTitle:(NSString*) title message:(NSString*) message;
+
+- (void) showYesNoAlertWithTitle:(NSString*) title message:(NSString*) message
+                 denyButtonTitle:(NSString*) denyButtonTitle allowButtonTitle:(NSString*) allowButtonTitle
+                      completion:(void (^)(BOOL allowTapped)) completionHandler;
+
 @end
