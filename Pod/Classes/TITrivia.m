@@ -67,7 +67,7 @@
     if (objc_getClass("UIAlertController") != nil) {
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * closeAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [presentingVC dismissViewControllerAnimated:TRUE completion:nil];
+//            [presentingVC dismissViewControllerAnimated:TRUE completion:nil];
         }];
         [alert addAction:closeAction];
         [presentingVC presentViewController:alert animated:TRUE completion:nil];
