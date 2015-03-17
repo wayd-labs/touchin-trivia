@@ -95,7 +95,7 @@ void (^activeAlertCompletion)(BOOL);
       if (![aspectInfo.instance isKindOfClass:UIAlertController.class]) {
         self.presentingVC = aspectInfo.instance;
       }
-      NSLog(@"%@: %@", aspectInfo.instance, aspectInfo.arguments);
+//      NSLog(@"%@: %@", aspectInfo.instance, aspectInfo.arguments);
     } error:NULL];
     trackActiveVCEnabled = true;
   }
