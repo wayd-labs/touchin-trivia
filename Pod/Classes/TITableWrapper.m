@@ -112,7 +112,7 @@ bool (^shouldShow)(void);
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger baseCount = [self.wrappedDataSource tableView:tableView numberOfRowsInSection:section];
-    if (self.show && (section == self.dialogSection) && (baseCount > self.dialogRow)) {
+    if (self.show && (section == self.dialogSection) && (baseCount >= self.dialogRow)) {
         baseCount++;
     }
     return baseCount;
