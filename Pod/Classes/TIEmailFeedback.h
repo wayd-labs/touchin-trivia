@@ -12,6 +12,7 @@
 @interface TIEmailFeedback : NSObject<MFMailComposeViewControllerDelegate>
 
 - (TIEmailFeedback*) initWithEmail:(NSString*) email;
+- (TIEmailFeedback*) initWithEmail:(NSString*) email userInfo:(NSDictionary*) userInfo;
 - (void) askFeedbackWithVC:(UIViewController*) presentingVC doneCallback:(void (^)(MFMailComposeResult))doneCallback;
 
 @end
