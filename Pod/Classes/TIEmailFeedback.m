@@ -65,9 +65,7 @@
         
         if([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) {
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * closeAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                [presentingVC dismissViewControllerAnimated:TRUE completion:nil];
-            }];
+            UIAlertAction * closeAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
             [alert addAction:closeAction];
             [presentingVC presentViewController:alert animated:TRUE completion:nil];
         }
