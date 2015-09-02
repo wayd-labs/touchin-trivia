@@ -36,4 +36,5 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'UIKit'
   s.dependency 'Aspects', '~> 1.4'
+  s.dependency 'Crashlytics'
 end
