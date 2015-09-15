@@ -20,6 +20,8 @@
 
 + (void) showSimpleMessageWithTitle:(NSString*) title message:(NSString*) message presentingVC:(UIViewController*) presentingVC;
 
++ (BOOL) shouldShowVKInteraction;
+
 @property (nonatomic, weak) UIViewController* presentingVC; //for alerts
 - (void) initTrackActiveVC;
 

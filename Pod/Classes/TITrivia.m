@@ -78,6 +78,15 @@
     }
 }
 
++ (BOOL) shouldShowVKInteraction {
+    NSArray* CISCountries = @[@"AM", @"AZ", @"BY", @"KZ", @"KG", @"MD", @"RU", @"TJ", @"UZ", @"TM", @"UA"];
+    NSString* countryCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    BOOL isCISCoutry = [CISCountries containsObject:countryCode];
+    BOOL isAppInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"vk://"]];
+    BOOL shouldShow = isCISCoutry || isAppInstalled;
+    return shouldShow;
+}
+
 - (void) showSimpleMessageWithTitle:(NSString*) title message:(NSString*) message {
     [TITrivia showSimpleMessageWithTitle:title message:message presentingVC:self.presentingVC];
 }
