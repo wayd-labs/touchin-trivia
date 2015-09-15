@@ -62,6 +62,9 @@
     return [[UIDevice currentDevice] model];
 }
 
++ (NSString *) currentLanguageKey {
+  return [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+}
 
 + (void) showSimpleMessageWithTitle:(NSString*) title message:(NSString*) message presentingVC:(UIViewController*) presentingVC {
     if (objc_getClass("UIAlertController") != nil) {

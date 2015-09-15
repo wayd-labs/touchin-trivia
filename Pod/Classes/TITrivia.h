@@ -18,6 +18,8 @@
 + (NSString *) iosVersion;
 + (NSString *) deviceModel;
 
++ (NSString *) currentLanguageKey;
+
 + (void) showSimpleMessageWithTitle:(NSString*) title message:(NSString*) message presentingVC:(UIViewController*) presentingVC;
 
 + (BOOL) shouldShowVKInteraction;
