@@ -17,6 +17,8 @@
 + (NSString *) appDisplayName;
 + (NSString *) iosVersion;
 + (NSString *) deviceModel;
++ (NSString *) appVersion;
++ (NSString *) build;
 
 + (NSString *) currentLanguageKey;
 
