@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Crashlytics.h>
 
 @interface TILog : NSObject
 
