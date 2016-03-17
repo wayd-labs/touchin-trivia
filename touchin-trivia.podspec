@@ -9,20 +9,10 @@
 
 Pod::Spec.new do |s|
   s.name             = "touchin-trivia"
-  s.version          = "0.2.2"
-  s.summary          = "A short description of touchin-analytics."
-  s.description      = <<-DESC
-                       An optional longer description of touchin-analytics
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
-  s.homepage         = "https://github.com/wayd-labs/touchin-trivia"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.version          = "0.3.2"
   s.license          = 'MIT'
   s.author           = { "alarin" => "me@alarin.ru" }
   s.source           = { :git => "https://github.com/wayd-labs/touchin-trivia.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
@@ -36,6 +26,10 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'UIKit'
   s.dependency 'Aspects', '~> 1.4'
-  s.vendored_libraries = 'Fabric'
-  s.vendored_libraries = 'Crashlytics'
+  s.dependency 'Fabric'
+  s.dependency 'Crashlytics'
+  s.pod_target_xcconfig = {
+     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/Crashlytics',
+     'OTHER_LDFLAGS'          => '$(inherited) -undefined dynamic_lookup'
+  }  
 end

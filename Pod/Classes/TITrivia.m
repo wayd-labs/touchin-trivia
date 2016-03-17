@@ -8,7 +8,7 @@
 
 #import "TITrivia.h"
 #import <objc/runtime.h>
-#import <Aspects.h>
+#import "Aspects.h"
 
 @implementation TITrivia
 
