@@ -36,6 +36,6 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'UIKit'
   s.dependency 'Aspects', '~> 1.4'
-  s.vendored_libraries = 'Fabric'
-  s.vendored_libraries = 'Crashlytics'
+  s.dependency = 'Fabric'
+  s.dependency = 'Crashlytics'
 end
