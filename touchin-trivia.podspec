@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "touchin-trivia"
-  s.version          = "0.3.2"
+  s.version          = "0.4.2"
   s.license          = 'MIT'
   s.author           = { "alarin" => "me@alarin.ru" }
   s.source           = { :git => "https://github.com/wayd-labs/touchin-trivia.git", :tag => s.version.to_s }
