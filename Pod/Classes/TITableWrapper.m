@@ -7,8 +7,12 @@
 //
 
 #import "TITableWrapper.h"
+
+#if __has_include("TIAnalytics.h") //Shite! FIXME: move TITableWrapper to push and rateme to break circullar dependency Trivia <-> Anatytics, or move analytics call to delegate or something
 #import "TIAnalytics.h"
-#import <Aspects.h>
+#endif
+
+#import "Aspects.h"
 
 @implementation TITableWrapper
 
@@ -126,7 +130,9 @@ bool (^shouldShow)(void);
             //cant insert row in empty table
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationRight];
         }
+        #ifdef TIAnalytics
         [TIAnalytics.shared trackEvent:@"RATEME-CELL_SHOWN_FIRST"];
+        #endif
     }
 }
 
