@@ -49,7 +49,7 @@
     self.presentingVC = presentingVC;
     self.doneCallback = doneCallback;
     
-    NSString *bundlePath = [[NSBundle bundleForClass:[TIEmailFeedback class]] pathForResource:@"TITrivia" ofType:@"bundle"];
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
