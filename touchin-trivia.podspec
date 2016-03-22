@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "touchin-trivia"
-  s.version          = "0.4.3"
+  s.version          = "0.4.4"
   s.license          = 'MIT'
   s.author           = { "alarin" => "me@alarin.ru" }
   s.source           = { :git => "https://github.com/wayd-labs/touchin-trivia.git", :tag => s.version.to_s }
@@ -26,9 +26,9 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'UIKit'
   s.dependency 'Aspects', '~> 1.4'
-  s.dependency 'Crashlytics'
-  s.pod_target_xcconfig = {
-     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/Crashlytics',
-     'OTHER_LDFLAGS'          => '$(inherited) -undefined dynamic_lookup'
-  }  
+#  s.dependency 'Crashlytics'
+#  s.pod_target_xcconfig = {
+#     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/Crashlytics',
+#     'OTHER_LDFLAGS'          => '$(inherited) -undefined dynamic_lookup'
+#  }  
 end

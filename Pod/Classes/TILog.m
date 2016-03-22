@@ -7,8 +7,6 @@
 //
 
 #import "TILog.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 @implementation TILog
 
