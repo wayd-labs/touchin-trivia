@@ -10,25 +10,20 @@
 
 @implementation TILog
 
-
 + (void) debug:(NSString *)msg {
-//  CLS_LOG(@"%@", msg);
-  NSLog(@"%@", msg);
+  CLS_LOG(@"%@", msg);
 }
 
 + (void) info:(NSString *)msg {
-//  CLS_LOG(@"%@", msg); //crashes for some reason (
-  NSLog(@"%@", msg);
+  CLS_LOG(@"%@", msg);
 }
 
 + (void) warning:(NSString *)msg {
-//  CLS_LOG(@"%@", msg);
-  NSLog(@"%@", msg);
+  CLS_LOG(@"%@", msg);
 }
 
 + (void) error:(NSString *)msg {
-//  CLS_LOG(@"%@", msg);
-  NSLog(@"%@", msg);
+  CLS_LOG(@"%@", msg);
 }
 
 @end
