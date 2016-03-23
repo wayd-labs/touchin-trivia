@@ -9,7 +9,9 @@
 
 Pod::Spec.new do |s|
   s.name             = "touchin-trivia"
-  s.version          = "0.4.4"
+  s.summary = "Bits and pieces for iOS apps"
+  s.homepage = "https://github.com/wayd-labs/touchin-trivia.git"
+  s.version          = "0.4.5"
   s.license          = 'MIT'
   s.author           = { "alarin" => "me@alarin.ru" }
   s.source           = { :git => "https://github.com/wayd-labs/touchin-trivia.git", :tag => s.version.to_s }
