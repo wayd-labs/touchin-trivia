@@ -12,19 +12,25 @@
 
 @implementation TILog
 
+//Use NSLog for Dev version of Genie and Prince. DEBUG defined flag not working
+
 + (void) debug:(NSString *)msg {
+  NSLog(@"%@", msg);
   CLS_LOG(@"%@", msg);
 }
 
 + (void) info:(NSString *)msg {
+  NSLog(@"%@", msg);
   CLS_LOG(@"%@", msg);
 }
 
 + (void) warning:(NSString *)msg {
+  NSLog(@"%@", msg);
   CLS_LOG(@"%@", msg);
 }
 
 + (void) error:(NSString *)msg {
+  NSLog(@"%@", msg);
   CLS_LOG(@"%@", msg);
 }
 
